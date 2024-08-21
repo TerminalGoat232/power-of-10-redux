@@ -1,0 +1,53 @@
+extends Control
+var includeUtils = preload("res://scripts/utils.gd")
+var utils = includeUtils.new()
+var player1_percentage = 0
+var player2_percentage = 0
+var rng = RandomNumberGenerator.new()
+var rd = rng.randi_range(0,100)
+var rd_walk_til_answer = []
+var orig_pos = 480
+var onNextAnswer = 0
+signal show_res_sig
+var i = 0
+func _ready():
+	orig_pos = $panel_3.position.y
+	for x in range(0,4): rd_walk_til_answer.append(rng.randi_range(0,100))
+	rd_walk_til_answer.append(rd)
+
+func show_result(res):
+	var pos = utils.percentage_to_posY(39,orig_pos,rd_walk_til_answer[i])
+	$panel_3.position.y = lerpf($panel_3.position.y,pos,get_process_delta_time()*2)
+	$panel_3/res_lbl.text = str(round(utils.posY_to_percentage(39,orig_pos,$panel_3.position.y)*100))+"%"
+	if i<=3 and round(utils.posY_to_percentage(39,orig_pos,$panel_3.position.y)*100) == rd_walk_til_answer[i]:i+=1
+	elif i == 4:
+		if abs(player1_percentage-rd)<abs(player2_percentage-rd):
+			print("player 1 wins")
+		else:print("player 2 wins")
+func _process(delta):
+	player1_percentage = $panel_1.playerX_percentage
+	player2_percentage = $panel_2.playerX_percentage
+	
+	if $panel_1.locked and $panel_2.locked:
+		show_res_sig.emit()
+	if onNextAnswer:
+		resetPanels(delta)
+		print(int($panel_3.position.y))
+		if (int($panel_3.position.y) == orig_pos-1): onNextAnswer=0
+func resetPanels(delta):
+	$panel_1.playerX_percentage = lerpf(player1_percentage,0.0,delta*3)
+	$panel_2.playerX_percentage = lerpf(player2_percentage,0.0,delta*3)
+	$panel_3.position.y = lerp($panel_3.position.y, orig_pos,delta*4)
+	$panel_3/res_lbl.text = str(round(utils.posY_to_percentage(39,orig_pos,$panel_3.position.y)*100))+"%"
+	$panel_1.styleBox.set("bg_color",Color.WEB_GRAY)
+	$panel_2.styleBox.set("bg_color",Color.WEB_GRAY)
+	
+func _on_next_pressed():
+	onNextAnswer = 1
+	rd = rng.randi_range(0,100)
+	for x in range(0,4): rd_walk_til_answer[x] = rng.randi_range(0,100)
+	rd_walk_til_answer[4]=rd
+	$panel_1.locked = 0
+	$panel_2.locked = 0
+	i=0
+func _on_show_res_sig(): show_result(rd)
