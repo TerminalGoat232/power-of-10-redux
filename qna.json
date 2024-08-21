@@ -1,7 +1,7 @@
 {
 	"ROUND_1": [
 		{
-			"question": "co bao nhieu % con chim con cho bi dien?",
+			"question": "(round 1) co bao nhieu % con chim con cho bi dien?",
 			"answer": 30
 		},
 		{
@@ -23,8 +23,7 @@
 	],
 	"ROUND_2": [
 		{
-			"question": "% amogusfsdf",
+			"question": "(round 2) cs bao nhieu con cu % amogusfsdf",
 			"answer": 40
 		}
 	]
-}
