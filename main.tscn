@@ -1,0 +1,133 @@
+[gd_scene load_steps=6 format=3 uid="uid://e1ftjheij10p"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_j8dbw"]
+[ext_resource type="Script" path="res://player.gd" id="1_t3o3h"]
+[ext_resource type="Theme" uid="uid://c163hgn8rdr67" path="res://text.tres" id="2_w4u17"]
+[ext_resource type="Theme" uid="uid://cc3fvhbarybnv" path="res://panel.tres" id="4_2kqa2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eqk8l"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("1_j8dbw")
+metadata/_edit_use_anchors_ = true
+
+[node name="panel_1" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 480.0
+offset_right = 512.0
+offset_bottom = 530.0
+mouse_filter = 2
+script = ExtResource("1_t3o3h")
+keyINCR = 87
+keyDCR = 83
+keyLOCK = 68
+
+[node name="player1_lbl" type="Label" parent="Control/panel_1"]
+layout_mode = 2
+theme = ExtResource("2_w4u17")
+text = "0%"
+
+[node name="indicator_1" type="Polygon2D" parent="Control/panel_1"]
+position = Vector2(80, 25)
+scale = Vector2(1, 0.1)
+polygon = PackedVector2Array(4, -22, 44.3928, -22, 73.6374, 2.23779, 44.3928, 34.5552, 4.05548, 34.5552)
+
+[node name="counting_down_b4_ded" type="Timer" parent="Control/panel_1"]
+wait_time = 0.5
+
+[node name="panel_2" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 662.0
+offset_top = 480.0
+offset_right = 762.0
+offset_bottom = 530.0
+mouse_filter = 2
+theme = ExtResource("4_2kqa2")
+script = ExtResource("1_t3o3h")
+keyINCR = 4194320
+keyDCR = 4194322
+keyLOCK = 4194319
+
+[node name="player2_lbl" type="Label" parent="Control/panel_2"]
+layout_mode = 2
+theme = ExtResource("2_w4u17")
+text = "0%"
+horizontal_alignment = 2
+
+[node name="indicator_2" type="Polygon2D" parent="Control/panel_2"]
+position = Vector2(20, 25)
+rotation = 3.14159
+scale = Vector2(1, 0.1)
+polygon = PackedVector2Array(4, -22, 44.3928, -22, 73.6374, 2.23779, 44.3928, 34.5552, 4.05548, 34.5552)
+
+[node name="panel_3" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 480.0
+offset_right = 637.0
+offset_bottom = 532.0
+mouse_filter = 2
+
+[node name="res_lbl" type="Label" parent="Control/panel_3"]
+layout_mode = 2
+theme = ExtResource("2_w4u17")
+text = "0%"
+horizontal_alignment = 1
+
+[node name="indicator_3" type="Polygon2D" parent="Control/panel_3/res_lbl"]
+position = Vector2(100, 21.5)
+rotation = 3.14159
+scale = Vector2(1.3, 0.1)
+polygon = PackedVector2Array(4, -22, 39, 10.001, 74, -19.998, 74, 0.00195312, 74, 40.002, 39, 10.001, 4, 40)
+
+[node name="scale_panel" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 532.0
+offset_top = 20.0
+offset_right = 642.0
+offset_bottom = 539.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 0
+offset_top = 539.0
+offset_right = 1154.0
+offset_bottom = 651.0
+
+[node name="panel_2" type="Panel" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="lbl1" type="Label" parent="Control/MarginContainer/panel_2"]
+layout_mode = 2
+offset_left = 45.0
+offset_top = 14.0
+offset_right = 1129.0
+offset_bottom = 110.0
+text = "lorem amogus sussy"
+label_settings = SubResource("LabelSettings_eqk8l")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="next" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 980.0
+offset_top = 560.0
+offset_right = 1066.0
+offset_bottom = 620.0
+text = "next que"
+
+[node name="show_que" type="Button" parent="Control"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="show_res_sig" from="Control" to="Control" method="_on_show_res_sig"]
+[connection signal="pressed" from="Control/next" to="Control" method="_on_next_pressed"]
