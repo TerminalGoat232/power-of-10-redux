@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://e1ftjheij10p"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_j8dbw"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_olcld"]
 [ext_resource type="Script" path="res://player.gd" id="1_t3o3h"]
 [ext_resource type="Theme" uid="uid://c163hgn8rdr67" path="res://text.tres" id="2_w4u17"]
 [ext_resource type="Theme" uid="uid://cc3fvhbarybnv" path="res://panel.tres" id="4_2kqa2"]
@@ -15,7 +15,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-script = ExtResource("1_j8dbw")
+script = ExtResource("1_olcld")
 metadata/_edit_use_anchors_ = true
 
 [node name="panel_1" type="PanelContainer" parent="Control"]
@@ -96,20 +96,20 @@ offset_right = 642.0
 offset_bottom = 539.0
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
+[node name="margin_que" type="MarginContainer" parent="Control"]
 layout_mode = 0
 offset_top = 539.0
 offset_right = 1154.0
 offset_bottom = 651.0
 
-[node name="panel_2" type="Panel" parent="Control/MarginContainer"]
+[node name="question_panel" type="Panel" parent="Control/margin_que"]
 layout_mode = 2
 
-[node name="lbl1" type="Label" parent="Control/MarginContainer/panel_2"]
+[node name="question" type="Label" parent="Control/margin_que/question_panel"]
 layout_mode = 2
-offset_left = 45.0
+offset_left = 332.0
 offset_top = 14.0
-offset_right = 1129.0
+offset_right = 838.0
 offset_bottom = 110.0
 text = "lorem amogus sussy"
 label_settings = SubResource("LabelSettings_eqk8l")
@@ -129,5 +129,4 @@ layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 
-[connection signal="show_res_sig" from="Control" to="Control" method="_on_show_res_sig"]
 [connection signal="pressed" from="Control/next" to="Control" method="_on_next_pressed"]
