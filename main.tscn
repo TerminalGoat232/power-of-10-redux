@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://e1ftjheij10p"]
+[gd_scene load_steps=21 format=3 uid="uid://e1ftjheij10p"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_olcld"]
 [ext_resource type="Script" path="res://player.gd" id="1_t3o3h"]
@@ -6,15 +6,38 @@
 [ext_resource type="Texture2D" uid="uid://fh5uww0rurcf" path="res://assets/textbar.png" id="2_tuhkd"]
 [ext_resource type="Theme" uid="uid://c163hgn8rdr67" path="res://text.tres" id="2_w4u17"]
 [ext_resource type="Texture2D" uid="uid://y76fcvyhs828" path="res://assets/inputbox.png" id="3_wnni5"]
+[ext_resource type="Texture2D" uid="uid://b443hrb5hal3f" path="res://assets/timedot.png" id="4_e8nlh"]
 [ext_resource type="Texture2D" uid="uid://d3rar3bkajmms" path="res://assets/2ndarybar.png" id="5_j1tej"]
-[ext_resource type="Texture2D" uid="uid://lfaktk75rofr" path="res://assets/rightbox.png" id="5_txfj0"]
+[ext_resource type="FontFile" uid="uid://b3cy4rofnvp6v" path="res://assets/54_HelveticaNeue MediumCond.ttf" id="6_0qfin"]
+[ext_resource type="Texture2D" uid="uid://dlgm02han2pah" path="res://assets/lockinconnector.png" id="7_0ica6"]
 [ext_resource type="Texture2D" uid="uid://collqu6x7um4r" path="res://assets/background.jpg" id="8_oobdu"]
+[ext_resource type="Texture2D" uid="uid://ou0ff16507mv" path="res://assets/answerbox.png" id="8_u14gr"]
+[ext_resource type="FontFile" uid="uid://uk8rbia8dpfi" path="res://assets/47_Helvetica 65 Medium.ttf" id="10_s0e62"]
+[ext_resource type="Texture2D" uid="uid://dts6x74kajml5" path="res://assets/ex.jpg" id="10_umjfn"]
+[ext_resource type="Texture2D" uid="uid://eixaa2mss8pg" path="res://assets/questionbox.png" id="11_xiqn0"]
+[ext_resource type="FontFile" uid="uid://djfuuaasv157m" path="res://assets/50_Tiresias Keyfont V2.ttf" id="12_m13l0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fwp1d"]
+font = ExtResource("6_0qfin")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_s5r1m"]
+font = ExtResource("6_0qfin")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_3d60e"]
+line_spacing = 1.0
+font = ExtResource("10_s0e62")
+font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_eqk8l"]
+font = ExtResource("12_m13l0")
+font_size = 28
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Control" type="Control" parent="."]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -24,117 +47,245 @@ script = ExtResource("1_olcld")
 metadata/_edit_use_anchors_ = true
 
 [node name="Mainbar" type="Sprite2D" parent="Control"]
-position = Vector2(587.875, 269)
-scale = Vector2(0.532143, 0.645858)
+position = Vector2(586.875, 245)
+scale = Vector2(0.6, 0.585)
 texture = ExtResource("2_plm5b")
 
-[node name="panel_1" type="PanelContainer" parent="Control"]
+[node name="2Ndarybar" type="Sprite2D" parent="Control"]
+self_modulate = Color(1, 0.478431, 0.478431, 1)
+show_behind_parent = true
+z_index = 1
+position = Vector2(590, 489)
+rotation = 3.14159
+scale = Vector2(0.7, 0.03)
+texture = ExtResource("5_j1tej")
+centered = false
+offset = Vector2(-41, 0)
+flip_v = true
+
+[node name="timer_panel" type="PanelContainer" parent="Control"]
 self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 118.0
+offset_top = 396.0
+offset_right = 418.0
+offset_bottom = 436.0
+rotation = 0.0349066
+
+[node name="Timedot10" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(264.061, 25.8)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot9" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(238.077, 26.7076)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot8" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(212.058, 26.6154)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot7" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(186.039, 26.5237)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot6" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(159.264, 25.1429)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot5" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(132.932, 24.3756)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot4" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(105.878, 23.3192)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot3" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(78.825, 22.2626)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot2" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(50.7373, 20.2416)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot" type="Sprite2D" parent="Control/timer_panel"]
+position = Vector2(23.9278, 17.8616)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="timer_panel2" type="PanelContainer" parent="Control"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 759.0
+offset_top = 415.0
+offset_right = 1059.0
+offset_bottom = 455.0
+rotation = -0.0698132
+
+[node name="Timedot" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(23.8582, 18.8591)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot2" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(50.6675, 21.2393)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot3" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(78.825, 22.2626)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot4" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(105.878, 23.3192)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot5" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(132.932, 24.3756)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot6" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(159.264, 25.1429)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot7" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(186.039, 26.5237)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot8" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(212.058, 26.6154)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot9" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(238.077, 26.7076)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="Timedot10" type="Sprite2D" parent="Control/timer_panel2"]
+position = Vector2(264.061, 25.8)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_e8nlh")
+
+[node name="panel_1" type="PanelContainer" parent="Control" node_paths=PackedStringArray("timer")]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
 offset_left = 412.0
-offset_top = 480.0
+offset_top = 440.0
 offset_right = 512.0
-offset_bottom = 530.0
+offset_bottom = 490.0
 mouse_filter = 2
 script = ExtResource("1_t3o3h")
 keyINCR = 87
 keyDCR = 83
 keyLOCK = 68
+timer = NodePath("timer_1")
 
 [node name="player1_lbl" type="Label" parent="Control/panel_1"]
 z_index = 1
 layout_mode = 2
 theme = ExtResource("2_w4u17")
 text = "0%"
+label_settings = SubResource("LabelSettings_fwp1d")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="indicator_1" type="Polygon2D" parent="Control/panel_1"]
-show_behind_parent = true
-z_index = 1
-position = Vector2(80, 25)
-scale = Vector2(0.889796, 0.068)
-polygon = PackedVector2Array(4, -22, 38.4118, -22, 44.3928, -22, 73.6374, 2.23779, 44.3928, 34.5552, 4.05548, 34.5552)
-
 [node name="input_box_sprite_p1" type="Sprite2D" parent="Control/panel_1"]
+self_modulate = Color(1, 1, 1, 0.862745)
 show_behind_parent = true
 z_index = 1
 position = Vector2(52, 25)
 scale = Vector2(0.348, 0.25)
 texture = ExtResource("3_wnni5")
 
-[node name="panel_2" type="PanelContainer" parent="Control"]
+[node name="Lockinconnector" type="Sprite2D" parent="Control/panel_1"]
+position = Vector2(146, 25)
+scale = Vector2(0.35, 0.2)
+texture = ExtResource("7_0ica6")
+
+[node name="timer_1" type="Timer" parent="Control/panel_1"]
+wait_time = 10.0
+one_shot = true
+
+[node name="panel_2" type="PanelContainer" parent="Control" node_paths=PackedStringArray("timer")]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 662.0
-offset_top = 480.0
+offset_top = 440.0
 offset_right = 762.0
-offset_bottom = 530.0
+offset_bottom = 490.0
 mouse_filter = 2
 script = ExtResource("1_t3o3h")
 keyINCR = 4194320
 keyDCR = 4194322
 keyLOCK = 4194319
+timer = NodePath("timer_2")
 
 [node name="player2_lbl" type="Label" parent="Control/panel_2"]
 z_index = 1
 layout_mode = 2
 theme = ExtResource("2_w4u17")
 text = "0%"
+label_settings = SubResource("LabelSettings_s5r1m")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="indicator_2" type="Polygon2D" parent="Control/panel_2"]
-show_behind_parent = true
-z_index = 1
-position = Vector2(20, 25)
-rotation = 3.14159
-scale = Vector2(1, 0.1)
-polygon = PackedVector2Array(4, -22, 44.3928, -22, 73.6374, 2.23779, 44.3928, 34.5552, 4.05548, 34.5552)
-
 [node name="input_box_sprite_p1" type="Sprite2D" parent="Control/panel_2"]
+self_modulate = Color(1, 1, 1, 0.862745)
 show_behind_parent = true
 z_index = 1
 position = Vector2(52, 25)
 scale = Vector2(0.348, 0.25)
 texture = ExtResource("3_wnni5")
 
+[node name="Lockinconnector" type="Sprite2D" parent="Control/panel_2"]
+position = Vector2(-43, 25)
+scale = Vector2(0.35, 0.2)
+texture = ExtResource("7_0ica6")
+
+[node name="timer_2" type="Timer" parent="Control/panel_2"]
+wait_time = 10.0
+one_shot = true
+
 [node name="panel_3" type="PanelContainer" parent="Control"]
 self_modulate = Color(1, 1, 1, 0)
+z_index = 1
 layout_mode = 0
 offset_left = 537.0
-offset_top = 480.0
+offset_top = 440.0
 offset_right = 637.0
-offset_bottom = 532.0
+offset_bottom = 492.0
 mouse_filter = 2
 
-[node name="Rightbox" type="Sprite2D" parent="Control/panel_3"]
+[node name="answer_box" type="Sprite2D" parent="Control/panel_3"]
 self_modulate = Color(0.988667, 1, 0.66, 0.780392)
 z_index = 1
-position = Vector2(50, 26)
-scale = Vector2(0.348, 0.25)
-texture = ExtResource("5_txfj0")
-
-[node name="indicator_3" type="Polygon2D" parent="Control/panel_3"]
-visible = false
-position = Vector2(100, 26.5)
-rotation = 3.14159
-scale = Vector2(1.3, 0.1)
-polygon = PackedVector2Array(4, -22, 39, 10.001, 74, -19.998, 74, 0.00195312, 74, 40.002, 39, 10.001, 4, 40)
+position = Vector2(51.5, 26)
+scale = Vector2(0.3, 0.25)
+texture = ExtResource("8_u14gr")
 
 [node name="res_lbl" type="Label" parent="Control/panel_3"]
 z_index = 1
 layout_mode = 2
 theme = ExtResource("2_w4u17")
 text = "0%"
+label_settings = SubResource("LabelSettings_3d60e")
 horizontal_alignment = 1
-
-[node name="2Ndarybar" type="Sprite2D" parent="Control/panel_3"]
-self_modulate = Color(1, 0.48, 0.48, 0.65098)
-show_behind_parent = true
-z_index = 1
-position = Vector2(51, 27.5)
-scale = Vector2(1.12644, 0.0732293)
-texture = ExtResource("5_j1tej")
+vertical_alignment = 1
 
 [node name="scale_panel" type="PanelContainer" parent="Control"]
 self_modulate = Color(1, 1, 1, 0)
@@ -145,26 +296,23 @@ offset_right = 640.0
 offset_bottom = 538.0
 mouse_filter = 2
 
-[node name="Textbar" type="Sprite2D" parent="Control/scale_panel"]
-position = Vector2(58, 269)
-scale = Vector2(0.693965, 0.602029)
+[node name="percentage_bar" type="Sprite2D" parent="Control/scale_panel"]
+z_index = 1
+position = Vector2(58, 445)
+scale = Vector2(0.6, 0.565)
 texture = ExtResource("2_tuhkd")
+offset = Vector2(0, -365)
 
-[node name="margin_que" type="MarginContainer" parent="Control"]
+[node name="margin_que" type="PanelContainer" parent="Control"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_top = 539.0
-offset_right = 1154.0
-offset_bottom = 651.0
+offset_left = 19.0
+offset_top = 503.0
+offset_right = 1173.0
+offset_bottom = 615.0
 
-[node name="question_panel" type="Panel" parent="Control/margin_que"]
+[node name="question" type="Label" parent="Control/margin_que"]
 layout_mode = 2
-
-[node name="question" type="Label" parent="Control/margin_que/question_panel"]
-layout_mode = 2
-offset_left = 332.0
-offset_top = 14.0
-offset_right = 838.0
-offset_bottom = 110.0
 text = "lorem amogus sussy"
 label_settings = SubResource("LabelSettings_eqk8l")
 horizontal_alignment = 1
@@ -183,8 +331,15 @@ layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 
-[node name="counting_down_b4_ded" type="Timer" parent="Control"]
-wait_time = 0.5
+[node name="Ex" type="Sprite2D" parent="Control"]
+position = Vector2(1986, 1032)
+texture = ExtResource("10_umjfn")
+
+[node name="Questionbox" type="Sprite2D" parent="Control"]
+z_index = -1
+position = Vector2(580, 554)
+scale = Vector2(0.9, 1)
+texture = ExtResource("11_xiqn0")
 
 [node name="Background" type="Sprite2D" parent="."]
 show_behind_parent = true
@@ -193,4 +348,6 @@ position = Vector2(576, 324)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("8_oobdu")
 
+[connection signal="timeout" from="Control/panel_1/timer_1" to="Control/panel_1" method="_on_counting_down_b_4_ded_timeout"]
+[connection signal="timeout" from="Control/panel_2/timer_2" to="Control/panel_1" method="_on_counting_down_b_4_ded_timeout"]
 [connection signal="pressed" from="Control/next" to="Control" method="_on_next_pressed"]
