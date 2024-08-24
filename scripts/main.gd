@@ -8,7 +8,6 @@ var player1_percentage = 0
 var player2_percentage = 0
 
 var rng = RandomNumberGenerator.new()
-#var rd = rng.randi_range(0,100)
 
 var rd_walk_til_answer = []
 var orig_pos = utils.bottom_bar_pos_y
@@ -24,10 +23,9 @@ var qna_json_file = "res://qna.json"
 var qna_dict = qna_info()
 var qna_round = [qna_dict["ROUND_1"],qna_dict["ROUND_2"]]
 
+signal dumb_sig
 func _ready():
-	print(qna_dict)
 	for x in range(0,4): rd_walk_til_answer.append(rng.randi_range(0,100))
-	
 	rd_walk_til_answer.append(qna_round[round][question_n]["answer"])
 	$margin_que/question.text = qna_round[round][question_n]["question"]
 	
@@ -47,8 +45,9 @@ func decide_who_wins():
 		print("player 2 wins")
 		
 func show_result():
-	var pos = utils.percentage_to_posY(max_pos,orig_pos,rd_walk_til_answer[w_counted])
-	var perc = round(utils.posY_to_percentage(max_pos,orig_pos,$panel_3.position.y)*100)
+	var pos = utils.percentage_to_val(max_pos,orig_pos,rd_walk_til_answer[w_counted])
+	var perc = round(utils.val_to_percentage(max_pos,orig_pos,$panel_3.position.y)*100)
+	$Secondarybar.scale.y = utils.percentage_to_val(0.52,0.03,perc)
 	$panel_3.position.y = lerpf($panel_3.position.y,pos,get_process_delta_time()*2)
 	$panel_3/res_lbl.text = str(perc)+"%"
 	if (w_counted <= n_walk_til_awnser-1) and (perc == rd_walk_til_answer[w_counted]): w_counted+=1
@@ -61,23 +60,32 @@ func show_result():
 func _process(delta):
 	player1_percentage = $panel_1.playerX_percentage
 	player2_percentage = $panel_2.playerX_percentage
-	
+	#print($panel_1/timer_1.time_left, " ", $panel_2/timer_2.time_left)
 	if $panel_1.locked and $panel_2.locked:
 		show_result()
 	if onNextAnswer:
 		resetPanels(delta)
 		$margin_que/question.text = qna_round[round][question_n]["question"]
 		if (int($panel_3.position.y) == orig_pos-1) and (int(player1_percentage) == 0):
+			dumb_sig.emit()
 			onNextAnswer=0
-		
+	if !$panel_1/timer_1.is_stopped():
+		$timer_panel.get_child(int(11-$panel_1/timer_1.time_left)).hide()
+	if !$panel_2/timer_2.is_stopped():
+		$timer_panel2.get_child(int(11-$panel_2/timer_2.time_left)).hide()
 func resetPanels(delta):
+		
 	$panel_1.playerX_percentage = lerpf(player1_percentage,0.0,delta*3)
 	$panel_2.playerX_percentage = lerpf(player2_percentage,0.0,delta*3)
 	$panel_3.position.y = lerp($panel_3.position.y, orig_pos, delta*4)
-	$panel_3/res_lbl.text = str(round(utils.posY_to_percentage(max_pos,orig_pos,$panel_3.position.y)*100))+"%"
+	var perc = round(utils.val_to_percentage(max_pos,orig_pos,$panel_3.position.y)*100)
+	$Secondarybar.scale.y = utils.percentage_to_val(0.52,0.03,perc)
+	$panel_3/res_lbl.text = str(perc)+"%"
 	$panel_1/input_box_sprite_p1.texture = input_box_texture
 	$panel_2/input_box_sprite_p1.texture = input_box_texture
-	
+	for z in range(0,10):
+		$timer_panel.get_child(z).show()
+		$timer_panel2.get_child(z).show()
 func _on_next_pressed():
 	set_process(!is_processing())
 	onNextAnswer = 1
@@ -88,6 +96,9 @@ func _on_next_pressed():
 	rd_walk_til_answer[4] = qna_round[round][question_n]["answer"]
 	$panel_1.locked = 0
 	$panel_2.locked = 0
-	$panel_1/timer_1.start(10)
-	$panel_2/timer_2.start(10)
 	w_counted=0
+
+func _on_start_timer_pressed():
+
+	$panel_1/timer_1.start()
+	$panel_2/timer_2.start()
