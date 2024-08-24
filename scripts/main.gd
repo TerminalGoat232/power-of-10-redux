@@ -1,6 +1,7 @@
 extends Control
 var includeUtils = preload("res://scripts/utils.gd")
 var utils = includeUtils.new()
+var input_box_texture = load("res://assets/inputbox.png")
 
 @export var n_walk_til_awnser = 4
 var player1_percentage = 0
@@ -26,8 +27,9 @@ var qna_round = [qna_dict["ROUND_1"],qna_dict["ROUND_2"]]
 func _ready():
 	print(qna_dict)
 	for x in range(0,4): rd_walk_til_answer.append(rng.randi_range(0,100))
+	
 	rd_walk_til_answer.append(qna_round[round][question_n]["answer"])
-	$margin_que/question_panel/question.text = qna_round[round][question_n]["question"]
+	$margin_que/question.text = qna_round[round][question_n]["question"]
 	
 func qna_info():
 	var ERR = json.parse(FileAccess.get_file_as_string(qna_json_file))
@@ -49,8 +51,8 @@ func show_result():
 	var perc = round(utils.posY_to_percentage(max_pos,orig_pos,$panel_3.position.y)*100)
 	$panel_3.position.y = lerpf($panel_3.position.y,pos,get_process_delta_time()*2)
 	$panel_3/res_lbl.text = str(perc)+"%"
-	if w_counted <= n_walk_til_awnser-1 and perc == rd_walk_til_answer[w_counted]: w_counted+=1
-	elif w_counted == n_walk_til_awnser and perc == qna_round[round][question_n]["answer"]:
+	if (w_counted <= n_walk_til_awnser-1) and (perc == rd_walk_til_answer[w_counted]): w_counted+=1
+	elif (w_counted == n_walk_til_awnser) and (perc == qna_round[round][question_n]["answer"]):
 		decide_who_wins()
 		question_n += 1
 		set_process(!is_processing())
@@ -64,7 +66,7 @@ func _process(delta):
 		show_result()
 	if onNextAnswer:
 		resetPanels(delta)
-		$margin_que/question_panel/question.text = qna_round[round][question_n]["question"]
+		$margin_que/question.text = qna_round[round][question_n]["question"]
 		if (int($panel_3.position.y) == orig_pos-1) and (int(player1_percentage) == 0):
 			onNextAnswer=0
 		
@@ -73,9 +75,8 @@ func resetPanels(delta):
 	$panel_2.playerX_percentage = lerpf(player2_percentage,0.0,delta*3)
 	$panel_3.position.y = lerp($panel_3.position.y, orig_pos, delta*4)
 	$panel_3/res_lbl.text = str(round(utils.posY_to_percentage(max_pos,orig_pos,$panel_3.position.y)*100))+"%"
-	#temp
-	$panel_1.styleBox.set("bg_color",Color.WEB_GRAY)
-	$panel_2.styleBox.set("bg_color",Color.WEB_GRAY)
+	$panel_1/input_box_sprite_p1.texture = input_box_texture
+	$panel_2/input_box_sprite_p1.texture = input_box_texture
 	
 func _on_next_pressed():
 	set_process(!is_processing())
@@ -87,4 +88,6 @@ func _on_next_pressed():
 	rd_walk_til_answer[4] = qna_round[round][question_n]["answer"]
 	$panel_1.locked = 0
 	$panel_2.locked = 0
+	$panel_1/timer_1.start(10)
+	$panel_2/timer_2.start(10)
 	w_counted=0
