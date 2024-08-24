@@ -1,12 +1,12 @@
 [gd_scene load_steps=21 format=3 uid="uid://e1ftjheij10p"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_olcld"]
-[ext_resource type="Script" path="res://player.gd" id="1_t3o3h"]
 [ext_resource type="Texture2D" uid="uid://dcnnu07okoynt" path="res://assets/mainbar.png" id="2_plm5b"]
 [ext_resource type="Texture2D" uid="uid://fh5uww0rurcf" path="res://assets/textbar.png" id="2_tuhkd"]
 [ext_resource type="Theme" uid="uid://c163hgn8rdr67" path="res://text.tres" id="2_w4u17"]
 [ext_resource type="Texture2D" uid="uid://y76fcvyhs828" path="res://assets/inputbox.png" id="3_wnni5"]
 [ext_resource type="Texture2D" uid="uid://b443hrb5hal3f" path="res://assets/timedot.png" id="4_e8nlh"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="5_fy875"]
 [ext_resource type="Texture2D" uid="uid://d3rar3bkajmms" path="res://assets/2ndarybar.png" id="5_j1tej"]
 [ext_resource type="FontFile" uid="uid://b3cy4rofnvp6v" path="res://assets/54_HelveticaNeue MediumCond.ttf" id="6_0qfin"]
 [ext_resource type="Texture2D" uid="uid://dlgm02han2pah" path="res://assets/lockinconnector.png" id="7_0ica6"]
@@ -51,7 +51,7 @@ position = Vector2(586.875, 245)
 scale = Vector2(0.6, 0.585)
 texture = ExtResource("2_plm5b")
 
-[node name="2Ndarybar" type="Sprite2D" parent="Control"]
+[node name="Secondarybar" type="Sprite2D" parent="Control"]
 self_modulate = Color(1, 0.478431, 0.478431, 1)
 show_behind_parent = true
 z_index = 1
@@ -189,7 +189,7 @@ offset_top = 440.0
 offset_right = 512.0
 offset_bottom = 490.0
 mouse_filter = 2
-script = ExtResource("1_t3o3h")
+script = ExtResource("5_fy875")
 keyINCR = 87
 keyDCR = 83
 keyLOCK = 68
@@ -218,7 +218,7 @@ scale = Vector2(0.35, 0.2)
 texture = ExtResource("7_0ica6")
 
 [node name="timer_1" type="Timer" parent="Control/panel_1"]
-wait_time = 10.0
+wait_time = 11.0
 one_shot = true
 
 [node name="panel_2" type="PanelContainer" parent="Control" node_paths=PackedStringArray("timer")]
@@ -229,7 +229,7 @@ offset_top = 440.0
 offset_right = 762.0
 offset_bottom = 490.0
 mouse_filter = 2
-script = ExtResource("1_t3o3h")
+script = ExtResource("5_fy875")
 keyINCR = 4194320
 keyDCR = 4194322
 keyLOCK = 4194319
@@ -258,7 +258,7 @@ scale = Vector2(0.35, 0.2)
 texture = ExtResource("7_0ica6")
 
 [node name="timer_2" type="Timer" parent="Control/panel_2"]
-wait_time = 10.0
+wait_time = 11.0
 one_shot = true
 
 [node name="panel_3" type="PanelContainer" parent="Control"]
@@ -320,16 +320,19 @@ vertical_alignment = 1
 
 [node name="next" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 980.0
-offset_top = 560.0
-offset_right = 1066.0
-offset_bottom = 620.0
-text = "next que"
+offset_left = 1073.0
+offset_top = 596.0
+offset_right = 1127.0
+offset_bottom = 627.0
+text = "next "
 
-[node name="show_que" type="Button" parent="Control"]
+[node name="start_timer" type="Button" parent="Control"]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 1011.0
+offset_top = 596.0
+offset_right = 1066.0
+offset_bottom = 627.0
+text = "start"
 
 [node name="Ex" type="Sprite2D" parent="Control"]
 position = Vector2(1986, 1032)
@@ -348,6 +351,11 @@ position = Vector2(576, 324)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("8_oobdu")
 
+[connection signal="dumb_sig" from="Control" to="Control/panel_1" method="_on_control_dumb_sig"]
+[connection signal="dumb_sig" from="Control" to="Control/panel_2" method="_on_control_dumb_sig"]
 [connection signal="timeout" from="Control/panel_1/timer_1" to="Control/panel_1" method="_on_counting_down_b_4_ded_timeout"]
 [connection signal="timeout" from="Control/panel_2/timer_2" to="Control/panel_1" method="_on_counting_down_b_4_ded_timeout"]
 [connection signal="pressed" from="Control/next" to="Control" method="_on_next_pressed"]
+[connection signal="pressed" from="Control/start_timer" to="Control" method="_on_start_timer_pressed"]
+[connection signal="pressed" from="Control/start_timer" to="Control/panel_1" method="_on_start_timer_pressed"]
+[connection signal="pressed" from="Control/start_timer" to="Control/panel_2" method="_on_start_timer_pressed"]
