@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://e1ftjheij10p"]
+[gd_scene load_steps=29 format=3 uid="uid://e1ftjheij10p"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_olcld"]
 [ext_resource type="Texture2D" uid="uid://dcnnu07okoynt" path="res://assets/mainbar.png" id="2_plm5b"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://c163hgn8rdr67" path="res://text.tres" id="2_w4u17"]
 [ext_resource type="Texture2D" uid="uid://y76fcvyhs828" path="res://assets/inputbox.png" id="3_wnni5"]
 [ext_resource type="Texture2D" uid="uid://b443hrb5hal3f" path="res://assets/timedot.png" id="4_e8nlh"]
+[ext_resource type="Texture2D" uid="uid://bg0dplmpok3eg" path="res://assets/tickbox.png" id="5_d3m1j"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="5_fy875"]
 [ext_resource type="Texture2D" uid="uid://d3rar3bkajmms" path="res://assets/2ndarybar.png" id="5_j1tej"]
 [ext_resource type="FontFile" uid="uid://b3cy4rofnvp6v" path="res://assets/54_HelveticaNeue MediumCond.ttf" id="6_0qfin"]
@@ -16,6 +17,179 @@
 [ext_resource type="Texture2D" uid="uid://dts6x74kajml5" path="res://assets/ex.jpg" id="10_umjfn"]
 [ext_resource type="Texture2D" uid="uid://eixaa2mss8pg" path="res://assets/questionbox.png" id="11_xiqn0"]
 [ext_resource type="FontFile" uid="uid://djfuuaasv157m" path="res://assets/50_Tiresias Keyfont V2.ttf" id="12_m13l0"]
+[ext_resource type="AudioStream" uid="uid://brgc0gvw03b35" path="res://assets/timer.mp3" id="18_axkme"]
+[ext_resource type="AudioStream" uid="uid://bncvo06yacmtd" path="res://assets/answerhold.mp3" id="19_5wm88"]
+[ext_resource type="AudioStream" uid="uid://ccjfc4q65vfi1" path="res://assets/answerreveal+tick.mp3" id="20_bb5rf"]
+
+[sub_resource type="Animation" id="Animation_blcsq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("panel_3/answer_box:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("panel_3/answer_box:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("panel_3/res_lbl:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:onShowResult")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7sdkf"]
+resource_name = "answer_holding"
+length = 12.0
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../baiting_heh")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("19_5wm88")
+}],
+"times": PackedFloat32Array(0.0333333)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("panel_3/answer_box:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 1.33333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("panel_3/res_lbl:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 1.33333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("panel_3/answer_box:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("panel_3/res_lbl:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:onShowResult")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.33333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_6c1cm"]
+resource_name = "tick_box_for_player"
+length = 4.0
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Answerreveal+tick")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("20_bb5rf")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2.06667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"decide_who_wins"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g4o8s"]
+_data = {
+"RESET": SubResource("Animation_blcsq"),
+"answer_holding": SubResource("Animation_7sdkf"),
+"tick_box_for_player": SubResource("Animation_6c1cm")
+}
 
 [sub_resource type="LabelSettings" id="LabelSettings_fwp1d"]
 font = ExtResource("6_0qfin")
@@ -46,6 +220,11 @@ mouse_filter = 2
 script = ExtResource("1_olcld")
 metadata/_edit_use_anchors_ = true
 
+[node name="main_anim" type="AnimationPlayer" parent="Control"]
+libraries = {
+"": SubResource("AnimationLibrary_g4o8s")
+}
+
 [node name="Mainbar" type="Sprite2D" parent="Control"]
 position = Vector2(586.875, 245)
 scale = Vector2(0.6, 0.585)
@@ -63,9 +242,65 @@ centered = false
 offset = Vector2(-41, 0)
 flip_v = true
 
-[node name="timer_panel" type="PanelContainer" parent="Control"]
+[node name="tickboxes_cnt_2" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 891.0
+offset_top = 442.0
+offset_right = 1037.0
+offset_bottom = 485.0
+
+[node name="Tickbox" type="Sprite2D" parent="Control/tickboxes_cnt_2"]
+visible = false
+position = Vector2(35, 30)
+rotation = -0.0349066
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_d3m1j")
+
+[node name="Tickbox2" type="Sprite2D" parent="Control/tickboxes_cnt_2"]
+visible = false
+position = Vector2(72, 29)
+rotation = -0.0349066
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_d3m1j")
+
+[node name="Tickbox3" type="Sprite2D" parent="Control/tickboxes_cnt_2"]
+visible = false
+position = Vector2(109, 28)
+rotation = -0.0349066
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_d3m1j")
+
+[node name="tickboxes_cnt_1" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 148.0
+offset_top = 439.0
+offset_right = 288.0
+offset_bottom = 488.0
+
+[node name="Tickbox" type="Sprite2D" parent="Control/tickboxes_cnt_1"]
+visible = false
+position = Vector2(99, 33)
+rotation = 0.0349066
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_d3m1j")
+
+[node name="Tickbox2" type="Sprite2D" parent="Control/tickboxes_cnt_1"]
+visible = false
+position = Vector2(62, 32)
+rotation = 0.0349066
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_d3m1j")
+
+[node name="Tickbox3" type="Sprite2D" parent="Control/tickboxes_cnt_1"]
+visible = false
+position = Vector2(24.9999, 31)
+rotation = 0.0349066
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("5_d3m1j")
+
+[node name="timer_panel" type="Control" parent="Control"]
 self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0
+anchors_preset = 0
 offset_left = 118.0
 offset_top = 396.0
 offset_right = 418.0
@@ -122,9 +357,9 @@ position = Vector2(23.9278, 17.8616)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_e8nlh")
 
-[node name="timer_panel2" type="PanelContainer" parent="Control"]
+[node name="timer_panel2" type="Control" parent="Control"]
 self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0
+anchors_preset = 0
 offset_left = 759.0
 offset_top = 415.0
 offset_right = 1059.0
@@ -181,7 +416,7 @@ position = Vector2(264.061, 25.8)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_e8nlh")
 
-[node name="panel_1" type="PanelContainer" parent="Control" node_paths=PackedStringArray("timer")]
+[node name="panel_1" type="PanelContainer" parent="Control" node_paths=PackedStringArray("timer", "timer_panel")]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 412.0
@@ -194,6 +429,7 @@ keyINCR = 87
 keyDCR = 83
 keyLOCK = 68
 timer = NodePath("timer_1")
+timer_panel = NodePath("../timer_panel")
 
 [node name="player1_lbl" type="Label" parent="Control/panel_1"]
 z_index = 1
@@ -221,7 +457,7 @@ texture = ExtResource("7_0ica6")
 wait_time = 11.0
 one_shot = true
 
-[node name="panel_2" type="PanelContainer" parent="Control" node_paths=PackedStringArray("timer")]
+[node name="panel_2" type="PanelContainer" parent="Control" node_paths=PackedStringArray("timer", "timer_panel")]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 662.0
@@ -234,6 +470,7 @@ keyINCR = 4194320
 keyDCR = 4194322
 keyLOCK = 4194319
 timer = NodePath("timer_2")
+timer_panel = NodePath("../timer_panel2")
 
 [node name="player2_lbl" type="Label" parent="Control/panel_2"]
 z_index = 1
@@ -272,6 +509,7 @@ offset_bottom = 492.0
 mouse_filter = 2
 
 [node name="answer_box" type="Sprite2D" parent="Control/panel_3"]
+visible = false
 self_modulate = Color(0.988667, 1, 0.66, 0.780392)
 z_index = 1
 position = Vector2(51.5, 26)
@@ -279,6 +517,8 @@ scale = Vector2(0.3, 0.25)
 texture = ExtResource("8_u14gr")
 
 [node name="res_lbl" type="Label" parent="Control/panel_3"]
+visible = false
+modulate = Color(1, 1, 1, 0)
 z_index = 1
 layout_mode = 2
 theme = ExtResource("2_w4u17")
@@ -334,6 +574,15 @@ offset_right = 1066.0
 offset_bottom = 627.0
 text = "start"
 
+[node name="ans" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 947.0
+offset_top = 596.0
+offset_right = 1002.0
+offset_bottom = 627.0
+text = "ans
+"
+
 [node name="Ex" type="Sprite2D" parent="Control"]
 position = Vector2(1986, 1032)
 texture = ExtResource("10_umjfn")
@@ -351,6 +600,15 @@ position = Vector2(576, 324)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("8_oobdu")
 
+[node name="Timershow" type="AudioStreamPlayer" parent="."]
+
+[node name="timer_ticking" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_axkme")
+
+[node name="baiting_heh" type="AudioStreamPlayer" parent="."]
+
+[node name="Answerreveal+tick" type="AudioStreamPlayer" parent="."]
+
 [connection signal="dumb_sig" from="Control" to="Control/panel_1" method="_on_control_dumb_sig"]
 [connection signal="dumb_sig" from="Control" to="Control/panel_2" method="_on_control_dumb_sig"]
 [connection signal="timeout" from="Control/panel_1/timer_1" to="Control/panel_1" method="_on_counting_down_b_4_ded_timeout"]
@@ -359,3 +617,4 @@ texture = ExtResource("8_oobdu")
 [connection signal="pressed" from="Control/start_timer" to="Control" method="_on_start_timer_pressed"]
 [connection signal="pressed" from="Control/start_timer" to="Control/panel_1" method="_on_start_timer_pressed"]
 [connection signal="pressed" from="Control/start_timer" to="Control/panel_2" method="_on_start_timer_pressed"]
+[connection signal="pressed" from="Control/ans" to="Control" method="_on_ans_pressed"]
