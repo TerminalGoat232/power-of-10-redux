@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://e1ftjheij10p"]
+[gd_scene load_steps=33 format=3 uid="uid://e1ftjheij10p"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_olcld"]
 [ext_resource type="Texture2D" uid="uid://dcnnu07okoynt" path="res://assets/mainbar.png" id="2_plm5b"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bg0dplmpok3eg" path="res://assets/tickbox.png" id="5_d3m1j"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="5_fy875"]
 [ext_resource type="Texture2D" uid="uid://d3rar3bkajmms" path="res://assets/2ndarybar.png" id="5_j1tej"]
+[ext_resource type="AudioStream" uid="uid://dwbwudf2cp27o" path="res://assets/timershow.mp3" id="5_sf73r"]
 [ext_resource type="FontFile" uid="uid://b3cy4rofnvp6v" path="res://assets/54_HelveticaNeue MediumCond.ttf" id="6_0qfin"]
 [ext_resource type="Texture2D" uid="uid://dlgm02han2pah" path="res://assets/lockinconnector.png" id="7_0ica6"]
 [ext_resource type="Texture2D" uid="uid://collqu6x7um4r" path="res://assets/background.jpg" id="8_oobdu"]
@@ -20,6 +21,8 @@
 [ext_resource type="AudioStream" uid="uid://brgc0gvw03b35" path="res://assets/timer.mp3" id="18_axkme"]
 [ext_resource type="AudioStream" uid="uid://bncvo06yacmtd" path="res://assets/answerhold.mp3" id="19_5wm88"]
 [ext_resource type="AudioStream" uid="uid://ccjfc4q65vfi1" path="res://assets/answerreveal+tick.mp3" id="20_bb5rf"]
+[ext_resource type="AudioStream" uid="uid://y5twnyc2js2f" path="res://assets/alllockin.mp3" id="22_h0an7"]
+[ext_resource type="AudioStream" uid="uid://qdaiwhn4yxkj" path="res://assets/2ndsubmit.mp3" id="23_lq56a"]
 
 [sub_resource type="Animation" id="Animation_blcsq"]
 length = 0.001
@@ -184,11 +187,77 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_ntvwr"]
+resource_name = "timer_ticking"
+length = 16.0
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../timer_ticking")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("18_axkme")
+}],
+"times": PackedFloat32Array(4)
+}
+tracks/0/use_blend = true
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Timershow")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_sf73r")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.266667, 4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"show_timer"
+}, {
+"args": [],
+"method": &"_stop_proc"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5.06667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_timer"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g4o8s"]
 _data = {
 "RESET": SubResource("Animation_blcsq"),
 "answer_holding": SubResource("Animation_7sdkf"),
-"tick_box_for_player": SubResource("Animation_6c1cm")
+"tick_box_for_player": SubResource("Animation_6c1cm"),
+"timer_ticking": SubResource("Animation_ntvwr")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_fwp1d"]
@@ -603,11 +672,19 @@ texture = ExtResource("8_oobdu")
 [node name="Timershow" type="AudioStreamPlayer" parent="."]
 
 [node name="timer_ticking" type="AudioStreamPlayer" parent="."]
+
+[node name="timer_end" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_axkme")
 
 [node name="baiting_heh" type="AudioStreamPlayer" parent="."]
 
 [node name="Answerreveal+tick" type="AudioStreamPlayer" parent="."]
+
+[node name="Alllockin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_h0an7")
+
+[node name="2Ndsubmit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_lq56a")
 
 [connection signal="dumb_sig" from="Control" to="Control/panel_1" method="_on_control_dumb_sig"]
 [connection signal="dumb_sig" from="Control" to="Control/panel_2" method="_on_control_dumb_sig"]
