@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm5mhekjitw5f"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_cbe23"]
+[ext_resource type="Texture2D" uid="uid://clnke1x7fablw" path="res://icon.jpg" id="1_uucxo"]
+[ext_resource type="Texture2D" uid="uid://collqu6x7um4r" path="res://assets/background.jpg" id="3_43xyf"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cbe23")
+
+[node name="Icon" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(554.75, 181.25)
+scale = Vector2(0.686019, 0.184439)
+texture = ExtResource("1_uucxo")
+
+[node name="MenuBar" type="PanelContainer" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 226.0
+offset_top = 328.0
+offset_right = 426.0
+offset_bottom = 424.0
+
+[node name="vo_game" type="Button" parent="MenuBar"]
+layout_mode = 2
+text = "vô"
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(574.5, 328)
+scale = Vector2(0.900781, 0.9)
+texture = ExtResource("3_43xyf")
+
+[connection signal="pressed" from="MenuBar/vo_game" to="." method="_on_vo_game_pressed"]
