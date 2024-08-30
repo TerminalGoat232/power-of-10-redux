@@ -5,6 +5,7 @@ var utils = includeUtils.new()
 @onready var playerX_percentage = 0
 var inp = ""
 var locked = 0
+
 var pressed_start = 0
 @export var keyINCR: Key
 @export var keyDCR: Key
@@ -15,10 +16,11 @@ var pressed_start = 0
 @onready var panel_label_sprite = self.get_child(1)
 var bottom_pos = utils.bottom_bar_pos_y
 var top_pos = utils.bottom_bar_pos_y
-#	$Secondarybar.scale.y = utils.percentage_to_val(0.52,0.03,perc)
+signal sfx_sigc
 func _ready():
 	pass
 func _process(delta):
+
 	panel_label.text = str(int(playerX_percentage))+"%"
 	if !locked and pressed_start:
 		if Input.is_key_pressed(keyINCR):playerX_percentage += 0.34
@@ -26,8 +28,10 @@ func _process(delta):
 		playerX_percentage = clamp(playerX_percentage,0,100)
 		self.position.y = utils.percentage_to_val(30,440,playerX_percentage)
 		if Input.is_key_pressed(keyLOCK) or int(timer.time_left) == 1:
+			
+			sfx_sigc.emit()
 			timer.stop()
-			panel_label_sprite.texture = load("res://assets/rightbox.png")
+			panel_label_sprite.texture = load("res://assets/lockinbox.png")
 			locked = 1
 			timer_panel.hide()
 

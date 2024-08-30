@@ -18,6 +18,7 @@ var onNextAnswer = 0
 var question_n = 0
 var round = 0
 var w_counted = 0
+var not_locked_first = 0
 
 var json = JSON.new()
 var qna_json_file = "res://qna.json"
@@ -34,7 +35,7 @@ func _ready():
 	for x in range(0,4): rd_walk_til_answer.append(rng.randi_range(0,100))
 	rd_walk_til_answer.append(qna_round[round][question_n]["answer"])
 	$margin_que/question.text = qna_round[round][question_n]["question"]
-	
+
 func qna_info():
 	var ERR = json.parse(FileAccess.get_file_as_string(qna_json_file))
 	if ERR == OK: return json.data
@@ -43,15 +44,20 @@ func qna_info():
 func decide_who_wins():
 	var mismatch_p1 = abs(player1_percentage-qna_round[round][question_n]["answer"])
 	var mismatch_p2 = abs(player2_percentage-qna_round[round][question_n]["answer"])
+	var m_p1_lt_m_p2 =  mismatch_p1 < mismatch_p2
 	print(question_n," ", mismatch_p1," ", mismatch_p2," ",qna_round[round][question_n]["answer"])
-	if mismatch_p1 < mismatch_p2:
+	if m_p1_lt_m_p2:
 		utils.player_1_pts += 1
 		$tickboxes_cnt_1.get_child(utils.player_1_pts-1).show()
 		print("player 1 wins")
-	else:
+	elif !m_p1_lt_m_p2:
 		utils.player_2_pts += 1
 		$tickboxes_cnt_2.get_child(utils.player_2_pts-1).show()
 		print("player 2 wins")	
+	else: 
+		if rng.randi_range(0,1): utils.player_1_pts += 1
+		else: utils.player_2_pts += 1
+			
 	question_n += 1
 func show_result():
 	var pos = utils.percentage_to_val(max_pos,orig_pos,rd_walk_til_answer[w_counted])
@@ -62,22 +68,21 @@ func show_result():
 	if (w_counted <= n_walk_til_awnser-1) and (perc == rd_walk_til_answer[w_counted]): w_counted+=1
 	elif (w_counted == n_walk_til_awnser) and (perc == qna_round[round][question_n]["answer"]):
 		main_anim.play("tick_box_for_player")
-
 		onShowResult = 0
 		set_process(!is_processing())
-		
 		
 func _process(delta):
 	player1_percentage = $panel_1.playerX_percentage
 	player2_percentage = $panel_2.playerX_percentage
 	#print($panel_1/timer_1.time_left, " ", $panel_2/timer_2.time_left)
 	var both_player_locked = $panel_1.locked and $panel_2.locked
+	
+
 	if both_player_locked:
-		
 		if tts_stopped:
 			tts_stopped=0
 			main_anim.stop()
-			timer_ticking_sound.play(10.0)
+			#timer_ticking_sound.play(10.0)
 			
 	if onShowResult:
 		show_result()
@@ -123,6 +128,7 @@ func _on_next_pressed():
 	rd_walk_til_answer[4] = qna_round[round][question_n]["answer"]
 	$panel_1.locked = 0
 	$panel_2.locked = 0
+	not_locked_first=0
 	w_counted=0
 
 
@@ -141,3 +147,12 @@ func start_timer():
 	
 func _stop_proc():
 	set_process(!is_processing())
+
+func play_locked_sfx(n):
+	[$"1Stsubmit",$"2Ndsubmit"][n].play()
+	not_locked_first=1
+
+func _on_panel_1_sfx_sigc() -> void:
+	play_locked_sfx(not_locked_first)
+func _on_panel_2_sfx_sigc() -> void:
+	play_locked_sfx(not_locked_first)
