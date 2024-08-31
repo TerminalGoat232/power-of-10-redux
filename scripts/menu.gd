@@ -1,5 +1,5 @@
 extends Control
-var game = preload("res://game.tscn").instantiate()
+
 func _ready() -> void:
 	pass 
 
